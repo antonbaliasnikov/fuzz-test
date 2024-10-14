@@ -1,0 +1,18 @@
+[package]
+name = "zksolc-fuzz-target"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+afl = "*"
+era-compiler-common = { git = "https://github.com/matter-labs/era-compiler-common", branch = "main" }
+era-compiler-llvm-context = { git = "https://github.com/matter-labs/era-compiler-llvm-context", branch = "main" }
+era-compiler-solidity = { git = "https://github.com/matter-labs/era-compiler-solidity", branch = "main" }
+semver = "1.0.23"
+anyhow = "1.0.89"
+
+[dependencies.inkwell]
+git = "https://github.com/matter-labs-forks/inkwell"
+branch = "llvm-17"
+default-features = false
+features = ["llvm17-0", "no-libffi-linking", "target-eravm", "target-evm"]
