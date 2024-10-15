@@ -127,13 +127,16 @@ pub fn build_solidity(
 fn main() {
     fuzz!(|data: &[u8]| {
         let mut sources = BTreeMap::new();
-        sources.insert("main.sol".to_owned(), MAIN_CODE.to_owned());
+
+        if let Ok(s) = std::str::from_utf8(data) {
+            sources.insert("main.sol".to_owned(), s.to_owned());
+        }
 
         build_solidity(
             sources.clone(),
             BTreeMap::new(),
             None,
-            &SolcCompiler::LAST_SUPPORTED_VERSION,
+            &semver::Version::new(0, 8, 27),
             SolcPipeline::EVMLA,
             era_compiler_llvm_context::OptimizerSettings::cycles(),
         )
